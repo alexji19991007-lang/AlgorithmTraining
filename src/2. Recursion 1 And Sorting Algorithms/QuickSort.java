@@ -1,7 +1,7 @@
 // 假设有一群小朋友，Amy Bob Cindy David Ella 他们以字母顺序身高从低到高。
 // 有一天他们打乱了顺序 Bob David Cindy Ella Amy，需要让他们重新按身高排。
 // 我选择David作为pivot，所有比David高的人排他后面去，比他矮的人排他前面去
-// David as piviot --> Bob Cindy Ella David Amy --> 我们发现David已经回到了他正确的位置！！！！
+// David as piviot --> Cindy Bob Amy David Ella--> 我们发现David已经回到了他正确的位置！！！！
 
 // Initial state: [1, 9, 8, 5, 3]
 // Say pivot = 5
@@ -11,7 +11,7 @@
 // 1. 把pivot 5和最后一个数字3交换 --> [1, 9, 8, 3, 5]
 // 2. 两个挡板 i j ,三个区域 a) b) c) 的思想：
 //      [0 ... i): i的左侧（不包含i）全都是比pivot小的数字
-//      [i ... j): i和j中间为为探索的区域
+//      [i ... j]: i和j中间为没有探索的区域
 //      (j ... n-1]: j的右侧（不包含j) 全都是比pivot大的数字
 // 
 // State 1
@@ -55,11 +55,37 @@ public class QuickSort {
     }
 
     public static void quickSortHelper(int[] arr, int begin, int end) {
-        
+        if (begin >= end) {
+            return;
+        }
+        int pivotIndex = partition(arr, begin, end);
+        quickSortHelper(arr, begin, pivotIndex - 1);
+        quickSortHelper(arr, pivotIndex + 1, end);
     }
 
-    public static int partition(int[] array, int begin, int end) {
-        return -1;
+    public static int partition(int[] array, int beginIndex, int endIndex) {
+        int pivotIndex = beginIndex + (int) (Math.random() * (endIndex - beginIndex + 1));
+        swap(array, pivotIndex, endIndex);
+        int i = beginIndex;
+        int j = endIndex - 1;
+        while (i <= j) {
+            // if (array[i] < array[endIndex]) {
+            //     i++;
+            // }
+            // else if (array[i] > array[endIndex]) {
+            //     swap(array, i, j);
+            //     j--;
+            // }
+            if (array[i] < array[endIndex]) {
+                i++;
+            } else if (array[j] > array[endIndex]) {
+                j--;
+            } else {
+                swap(array, i++, j--);
+            }
+        }
+        swap(array, i, endIndex);
+        return i;
     }
 
     public static void swap(int[] array, int a, int b) {

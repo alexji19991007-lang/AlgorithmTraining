@@ -26,7 +26,7 @@
 // How many levels below the separation = log n
 // Time complexity below the separation = n + n + … + n = O(nlog(n))
 
-// TOTAL Time = O(n) + O(nlog(n)) = O(log(n))
+// TOTAL Time = O(n) + O(nlog(n)) = O(nlog(n))
 // TOTAL EXTRA space = n/2 + n/4 + n/8 + … + 2 + 1 = O(n) --> 看代码
 public class MergeSort {
     public int[] mergeSort(int[] array) {
@@ -39,7 +39,13 @@ public class MergeSort {
     }
 
     public static void mergeSortHelper(int[] array, int left, int right) {
-        
+        if (left >= right) {
+            return;
+        }
+        int mid = left + (right - left) / 2;
+        mergeSortHelper(array, left, mid); // 左边的小问题
+        mergeSortHelper(array, mid + 1, right); // 右边的小问题
+        merge(array, left, mid, mid + 1, right);
     }
 
     // 如何merge two SORTED arrays? 谁⼩移谁
@@ -49,8 +55,37 @@ public class MergeSort {
     // 2nd half[4] = 1,3,8,6 → 1 3 6 8
     //                         j→
     // --> result = [1,2,3,4,5,6,7,8]
+    //                       a b c d
+    //               0 1 2 3 4 5 6 7
+    // buffer [        ]
+    //          |
+    //         cur
     public static void merge(int[] array, int oneStart, int oneEnd, int twoStart, int twoEnd) {
-        
+        if (oneStart == twoStart) {
+            return;
+        }
+        int originalStart = oneStart;
+        int[] buffer = new int[twoEnd - oneStart + 1];
+        int cur = 0;
+        while (oneStart <= oneEnd && twoStart <= twoEnd) {
+            // if (array[oneStart] < array[twoStart]) {
+            //     buffer[cur++] = array[oneStart++];
+            // }
+            // else {
+            //     buffer[cur++] = array[twoStart++];
+            // }
+            buffer[cur++] = array[oneStart] < array[twoStart] ? array[oneStart++] : array[twoStart++];
+        }
+        while (oneStart <= oneEnd) {
+            buffer[cur++] = array[oneStart++];
+        }
+        while (twoStart <= twoEnd) {
+            buffer[cur++] = array[twoStart++];
+        }
+        cur = 0;
+        while (originalStart <= twoEnd) {
+            array[originalStart++] = buffer[cur++];
+        }
     }
 
     // 课后作业: Given a string “A1B2C3D4”, how to convert it to another string “ABCD1234”
