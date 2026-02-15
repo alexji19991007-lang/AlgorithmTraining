@@ -1,0 +1,64 @@
+BFS v.s. DFS (assume clock-wise priority)
+BFS:
+    0 0 0 0 *
+    0 0 0 0 0
+    0 0 1 0 0 // step 1
+    0 0 0 0 0 [(2, 2)]
+
+    0 0 0 0 *
+    0 0 2 0 0
+    0 2 1 2 0 // step 2, explore/expand node (2, 2) we got 4 nodes
+    0 0 2 0 0 [(1, 2), (2, 3), (3, 2), (2, 1)]
+
+    0 0 3 0 *
+    0 3 2 3 0
+    0 2 1 2 0 // assume all 4 nodes are explored/expanded in step 2
+    0 0 2 0 0 [(2, 3), (3, 2), (2, 1), (0, 2), (1, 3), (1, 1)] 
+
+    0 0 3 0 *
+    0 3 2 3 0
+    0 2 1 2 4 // assume all 4 nodes are explored/expanded in step 3
+    0 0 2 4 0 [(3, 2), (2, 1), (0, 2), (1, 3), (1, 1), (2, 4), (3, 3)] 
+
+    ......
+
+DFS:
+    0 * 0 0 0
+    0 0 0 x x
+    0 0 1 0 0 // step 1
+    0 0 0 0 0 [(2, 2)] --> assume tail is stack top
+
+    0 * 0 0 0
+    0 0 2 x x
+    0 0 1 0 0 // step 2, explore/expand node at the top of the stack, which is (2, 2)
+    0 0 0 0 0 [(2, 2), (1, 2)]
+
+    0 * 3 0 0
+    0 0 2 x x
+    0 0 1 0 0 // step 3, explore/expand node at the top of the stack, which is (1, 2)
+    0 0 0 0 0 [(2, 2), (1, 2), (0, 2)]
+
+    0 * 3 4 0
+    0 0 2 x x
+    0 0 1 0 0 // step 4, explore/expand node at the top of the stack, which is (0, 2)
+    0 0 0 0 0 [(2, 2), (1, 2), (0, 2), (0, 3)]
+
+    0 * 3 4 5
+    0 0 2 x x
+    0 0 1 0 0 // step 5, explore/expand node at the top of the stack, which is (0, 3)
+    0 0 0 0 0 [(2, 2), (1, 2), (0, 2), (0, 3), (0, 4)]
+
+    0 * 3 4 5
+    0 0 2 x x
+    0 0 1 0 0 // step 6, (0, 4) is a dead end, it is fully explored, pop it from the stack, so we keep exploring the top of the stack (0, 3)
+    0 0 0 0 0 [(2, 2), (1, 2), (0, 2), (0, 3)]
+
+    0 * 3 4 5
+    0 0 2 x x
+    0 0 1 0 0 // step 7, (0, 3) is also fully explored, pop it from the stack, so we keep exploring the top of the stack (0, 2)
+    0 0 0 0 0 [(2, 2), (1, 2), (0, 2), (0, 1)]
+
+    0 6 3 4 5
+    0 0 2 x x
+    0 0 1 0 0 // step 8, (0, 1) is our target!
+    0 0 0 0 0 

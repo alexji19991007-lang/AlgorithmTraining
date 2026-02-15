@@ -1,0 +1,75 @@
+Queue -- First In First Out (FIFO).
+    Usages: Breadth First Search (BFS) questions.
+    典型问题： Print out a tree level by level & Sliding window problems.
+
+Stack -- Last In First Out (LIFO), like a box.
+    Usages: Depth First Search (DFS) questions.
+
+
+      Interface        Actual Implementation
+Queue<Integer> queue = new LinkedList<>();
+Queue<Integer> queue = new ArrayDeque<>(); --> this is better
+Deque<Integer> stack = new LinkedList<>();
+Deque<Integer> stack = new ArrayDeque<>(); --> this is better
+Stack<Integer> stack = new Stack<>(); --> DO NOT USE
+
+class v.s. interface
+Programming to an INTERFACE!!!!
+
+ArrayDeque:
+    ✔ Advantages
+        - Faster than LinkedList for queue operations
+        - Better memory efficiency
+        - No per-element node allocation
+        - Excellent for FIFO queue and stack (LIFO) usage
+    ❌ Limitations
+        - Does NOT allow null elements
+
+LinkedList:
+    ✔ Advantages
+        - Allows null elements !!!
+        - Implements both Queue and List
+    ❌ Disadvantages
+        - Slower in practice
+        - Higher memory overhead (each element is a node with 2 pointers)
+        - Poorer cache locality
+        - Generally not recommended just for queue/stack usage
+
+Stack: 
+    public class Stack<E> extends Vector<E> -- That design is now considered flawed because:
+        - A stack is not a type of vector
+        - It inherits many unnecessary methods
+        - It exposes operations that break stack semantics: stack.add(1); stack.remove(0); stack.get(5);
+    public synchronized E push(E item) -- That means every push/pop is thread-safe by default
+        - Most stacks are used in single-threaded code
+        - Syncronization adds unnecessary overhead
+        - Slower than modern alternatives
+
+So, the rule is:
+    1. If null value will possibly exist: use LinkedList.
+    2. Otherwise, use ArrayDeque.
+
+
+How to use:
+Deque<Integer> stack = new ArrayDeque<>();
+stack.push(1);
+* stack.addFirst(1);
+* int topValue = stack.pollFirst(); // removes from the top, returns null if empty
+* int topValue = stack.peekFirst(); // does NOT remove, returns null if empty
+int topValue = stack.pop(); // removes from the top, throws exception if empty
+
+Queue<Integer> queue = new ArrayDeque<>();
+* queue.offer(10); --> adds to end
+* int removed = queue.poll(); --> removes from the front, returns null if empty (no exception)
+* int front = queue.peek(); --> does NOT remove, returns null if empty
+queue.remove(); --> this will throw exception
+
+
+Important Observation:
+1. If you sequentially poll elements from queue 1 and offer to queue 2, the order is preserved.
+2. If you sequentially pop elements from stack 1 and push to stack 2, the order is reversed.
+   If you then pop elements from stack 2 and push to stack 1, the order is restored.
+3. Sequentially pop the elements from stack 1 and offer to queue 1. Then sequentially poll elements from queue 1 and push
+   back to stack 1. Then the order is also reversed.
+
+    
