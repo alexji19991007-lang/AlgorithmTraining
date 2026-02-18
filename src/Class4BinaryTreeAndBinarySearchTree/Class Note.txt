@@ -1,0 +1,110 @@
+Binary Tree
+Definition: at most two children node.
+Example:
+                10
+              /    \
+            5       15
+          /   \    /  \
+         2     7  12   20  --> all leaf nodes' level = 3
+        / \
+    null   null
+
+The height of above binary tree is 3.
+
+See TreeNode.java
+
+基本知识点：
+Binary tree traversal:
+    DFS:
+        a. Pre-order: 我把我⾃⼰放在最前来访问value...然后再左，右
+            10 5 2 7 15 12 20
+        b. In-order: 我先访问完左边所有的东西...然后再是自己的value...最后再右边
+            2 5 7 10 12 15 20
+        c. Post-order: 我先访问完左边所有的东西...然后再访问完右边所有东西...最后才是自己的value...
+            2 7 5 12 10 15 20
+    BFS:
+        d. Level-order: 一层一层来
+            10 5 15 2 7 12 20
+
+
+See InOrderTraversal.java.
+
+Height of binary tree:
+The total number of nodes in the longest path from root node to leaf node.
+
+Balanced Binary Tree: 
+Is commonly defined as a binary tree in which the height of the left and right subtrees 
+of EVERY NODE differ by 1 or less.
+
+Balanced:
+                10
+              /    \
+            5       15
+          /   \    /  \
+         2   null 12   null
+
+Not Balanced:
+                10
+              /    \
+            5       15
+          /   \    /  \
+         2   null 12   16
+        /         / 
+       6         17   
+
+CONCLUSION 1: If a tree has n number of nodes., and it is balanced, then the height(level) of the tree = O(log_2(n))
+IMPORTANT NOTE: If a tree has n number of nodes., but we don’t know if it is balanced, then the height(level) 
+of the tree = O(n)
+
+Complete binary tree: is a binary tree in which every level, except possibly the last, is completely filled, and all 
+nodes are as far left as possible
+
+Complete:
+                10
+              /    \
+            5       15
+          /   \    /  \
+         2    12  14   null
+
+Not Complete:
+                10
+              /    \
+            5       15
+          /   \    /  \
+         2   null 14   null
+
+
+Not Complete:
+                10
+              /    \
+            5       15
+          /   \    /  \
+         2    13  14  null
+        /
+       4
+
+CONCLUSION 2: If a tree is a complete tree, then it must be a balanced tree.
+
+
+Binary Search Tree: for every single node in the tree, the values in its left subtree are all smaller 
+than its value, and the values in its right subtree are all larger than its value.
+
+Example:
+                10
+              /    \
+            5       12
+          /   \    /  \
+         2     7  11   13
+
+CONCLUSION 3: If we print the value of the nodes in BST in in-order sequence, then it must form an ascending order.
+[2, 5, 7, 10, 11, 12, 13]
+
+Recursion在tree题⽬的基本应⽤⼤致分为2类⽤法
+1. 把value从上往下传递 then 从下往上的题⽬
+    1.1. BST 判定⽅法
+2. 只把value 从下往上传递（更为常⻅，必须熟练掌握）
+    2.1. getHeight(Node root) 是经典的把integer value从下往上传递的题⽬
+    2.2. isBalanced(Node root) 是把boolean value从下往上传递的题⽬
+    2.3. isSymmetric(Node root1, Node root2) 是把boolean value从下往上传递的题⽬
+    2.4. Assign the value of each node to be the total number of nodes that belong to its left subtree. 
+        (是把integer value从下往上传递的题⽬)
