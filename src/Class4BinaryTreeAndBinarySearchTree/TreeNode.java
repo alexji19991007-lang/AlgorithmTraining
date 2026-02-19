@@ -1,4 +1,5 @@
 package Class4BinaryTreeAndBinarySearchTree;
+
 public class TreeNode {
     public int key;
     public TreeNode left; // can be null
