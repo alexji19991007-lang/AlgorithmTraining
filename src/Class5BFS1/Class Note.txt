@@ -1,0 +1,68 @@
+📘 Java Collections: HashMap, HashSet & PriorityQueue
+
+These three classes are part of the Java Collections Framework (java.util package).
+They are commonly used for storing and managing data efficiently.
+
+📌 What is a HashMap?
+- HashMap<K, V> stores key–value pairs.
+- Each key must be unique
+- Values can be duplicated 
+- Does NOT maintain insertion order
+- Allows one null key and multiple null values
+- Average time complexity: O(1) for put/get/remove
+
+Map<String, Integer> map = new HashMap<>();
+    key-type, value-type
+
+        Method                     |           Description
+put(K key, V value)	               |      Adds or updates key-value pair
+get(Object key)	                   |      Returns value of key
+remove(Object key)	               |      Removes key-value pair
+containsKey(Object key)	           |      Checks if key exists
+containsValue(Object value)	       |      Checks if value exists
+size()	                           |      Returns number of entries
+clear()	                           |      Removes all entries
+getOrDefault(K key, V defaultValue)|      Gets value, if not exist, returns the default value
+
+
+
+📌 What is a HashSet?
+- HashSet<E> stores unique elements only.
+- No duplicates allowed
+- Unordered
+- Allows one null
+- Backed internally by a HashMap
+- Average time complexity: O(1) for add/remove/search
+
+Set<String> set = new HashSet<>();
+
+    Method            |           Description
+add(E e)	          |          Adds element
+remove(Object o)	  |          Removes element
+contains(Object o)	  |          Checks if element exists
+size()	              |          Number of elements
+clear()	              |          Removes all elements
+
+
+
+📌 What is a PriorityQueue?
+- PriorityQueue<E> is a queue that orders elements by priority.
+- Default: Min-Heap (smallest element first)
+- Does NOT allow null
+- Not sorted fully — only head is guaranteed
+- Time complexity:
+- Insert: O(log n)
+- Poll: O(log n)
+- Peek: O(1)
+
+PriorityQueue<Integer> pq = new PriorityQueue<>();
+Queue<Integer> pq = new PriorityQueue<>();
+
+    Method            |           Description
+offer(E e)	          |         Insert element --> O(log(n))
+poll()	              |         Remove head --> O(log(n))
+peek()	              |         View head --> O(1)
+size()	              |         Number of elements
+
+Important Note: heapify an array/list is O(n) time complexity.
+Important Note: O(n) here is actually O(c * n), where c ~ 2
