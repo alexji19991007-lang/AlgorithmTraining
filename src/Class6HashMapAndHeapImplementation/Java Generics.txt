@@ -1,0 +1,68 @@
+⭐ <K, V> 是 Java 的泛型（Generics）语法，用来表示“类型参数”
+也就是说：
+    - K 表示 key 的类型（Key）
+    - V 表示 value 的类型（Value）
+这样 MyHashMap 就能支持任意类型，而不是固定的 String、Integer 等。
+
+🔍 1. 为什么要用 <K, V>？
+    因为：
+        - 如果不写泛型，HashMap 只能存某一种特定类型的数据（比如 key 全是 String）。
+        - 但我们希望它能像 Java 自带的 HashMap<K, V> 一样使用：
+            MyHashMap<String, Integer> map1;   // key = String, value = Integer
+            MyHashMap<Integer, String> map2;   // key = Integer, value = String
+            MyHashMap<Student, Double> map3;   // key = Student, value = Double
+        - 这样 HashMap 就变成一个“通用容器”。泛型让它变得灵活、复用性高。
+
+🔍 2. <K, V> 的语法含义是什么？
+    你可以把 <K, V> 理解为“占位符”。它告诉 Java：
+        - 这个类在编译(Compile)时不知道使用什么类型，使用时你再告诉我。
+    例如：
+        - public class MyHashMap<K, V> { .... }
+    意思是：
+        - 这个类有两个类型参数：K 和 V
+        - 用于 key 的类型由用户决定
+        - 用于 value 的类型同样由用户决定
+    K、V 只是名字，也可以写成 <A, B>，只是大家习惯用：
+        - K = Key
+        - V = Value
+        - T = Type
+        - E = Element（常用于集合）
+
+🔍 3. <K, V> 在类内部如何使用？
+    比如 Node 节点：
+        - private Node<K, V>[] array;
+    表示：
+        - 数组元素是 Node<K, V>
+        - Node 里包含 key 和 value，类型也由外部指定
+    Node 的定义：
+        private static class Node<K, V> {
+            K key;
+            V value;
+            Node<K, V> next;
+        }
+    例子：
+    MyHashMap<String, Integer>
+    则：
+        - K → String
+        - V → Integer
+    Node<String, Integer>
+
+🔍 4. 使用泛型的实际效果
+    MyHashMap<String, Integer> map = new MyHashMap<>();
+    map.put("apple", 10);     // key 是 String，value 是 Integer
+    map.put("banana", 20);
+    Integer v = map.get("apple"); // 返回 Integer，类型安全
+
+    泛型带来：
+        ✔ compile-time类型检查
+
+    避免错误：
+        map.put("apple", "wrong type"); // 会报错
+        ✔ 不需要手动强制类型转换
+
+    如果没有泛型，你必须强制转型，非常容易出错：
+    (Integer) map.get("apple");
+
+🔍 5. 用一句话总结 <K, V>
+    - <K, V> 是声明 泛型类 的语法，用来告诉 Java：“这个类中的 key 和 value 的类型不固定，由使用者指定。”
+    - 这是 Java 集合框架的基础思想。

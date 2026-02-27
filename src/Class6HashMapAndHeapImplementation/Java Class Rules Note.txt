@@ -1,0 +1,35 @@
+Typical Java class member ordering:
+1. Static fields
+    - public static final constants first
+    - then other static fields
+2. Instance fields
+    - private fields
+    - then less-restrictive ones (protected, public).
+3. Constructors
+    - All constructors grouped together
+    - Usually ordered from simplest to most complex
+4. Public methods
+    - Instance methods first
+    - Then public static methods (many teams prefer static later)
+5. Protected methods
+6. Private methods
+    - Helper methods used by public/protected methods
+    - Sometimes grouped by functionality rather than access level
+7. Inner classes / interfaces / enums
+
+==========================================================================================================================
+
+public class Example {
+
+    // 1. Public static final constants
+    // 2. Static fields
+    // 3. Instance fields
+
+    // 4. Constructors
+
+    // 5. Public methods
+    // 6. Protected methods
+    // 7. Private methods
+
+    // 8. Inner classes
+}
