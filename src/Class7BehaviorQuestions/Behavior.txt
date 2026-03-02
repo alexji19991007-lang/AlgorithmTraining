@@ -1,0 +1,85 @@
+Way of Thinking:
+    - Be Prepared: 
+        Know yourself / companies
+    - Critical Thinking: 
+        Motivation analysis from other people’s perspective
+        Pros / Cons
+        Consequence
+        Do not be followers (copy or influenced by others’ opinions)
+    - Systematic Way of Thinking: 
+        Initiatives (overview, complexities)
+        Road maps (details)
+        Dependencies (ordering)
+        Executions (verifications)
+        Results (failure / risk management)
+
+Way of Talking:
+    - Do not confront your interviewers
+    - How to talk (unless you know exactly what you are saying):
+        When having nothing nice to say, you choose not to say it. 
+        Never criticize your previous employers (not too much).
+        Calm and reasonable
+
+BQ 1: Your weaknesses? 
+    - 不要王婆卖瓜自卖自夸，诚实！！！！！！
+    - How to improve yourself in the future?
+
+*BQ 2: When you have different opinions from your colleagues?
+    - Scenarios -- 要给出具体的实例
+    - Communication (How, When, Where) – Keep in mind: Say something for a reason, how to praise someone, how to criticize someone
+    - Take Actions: Knowledge sharing, provide concrete data
+    - What if? – Back up solutions
+    - 如果你就是知道你上级做的决定是错误的怎么办？
+		分类讨论：如果是小问题，可以先跟着上级的思路去做
+				如果是大问题，一定要promote more communication/向更上级汇报（谨慎，有些公司不能跨级汇报）
+
+*BQ 3: When you have limited time available to finish your project? Quality vs speed?
+    - We need to sit down with all parties to analyze which feature is the most important (feature prioritization). 
+    - Agile Development
+
+*BQ 4: Most challenging project?
+    - It is an important question to test your limit.
+    - Why is it challenging? Technical, human resource, time?
+    - 千万不可以把project内容说的很冗长，只分享high-level idea
+    - How did you solve it?
+    - How did you evaluate the result? Scope & Impact & What did you learn
+
+BQ 5: Tell me one failure in the past.
+    - More critical is not just to tell the story
+    - Any rememdy work?
+	- What you learned? How can you improve in the future?
+
+*BQ 6: Describe a stressful situation at work and how you handled it?
+    - 主动的Stress：能力/经验不够，现实残酷
+	- 被动的Stress：上级给你的，peer pressure
+    - Make plans, try to get very well-prepared for future challenges
+    - Look for helps from others (更有经验的老员工，心理医生)
+
+BQ 7: What will you do if you were given a very vague task?
+    - Gather opinion / details
+    - Make a plan
+    - Have a prototype or what we call MVP (most viable product);
+    - Build upon that
+
+BQ 8: What is your career plan for the next 5 years?
+    - From where you are to where you want to be. HOW???????
+
+BQ 9: Do you have any questions for me?
+    - Test how eager you are to join the company.
+    - DO NOT DIRECTLY ask about work-life balance and privacy questions:
+        - Could you describe a typical work day as a software engineer at XXX?
+    - Tech-oriented 你们组用的是什么技术呀？你们现在主要找什么方面能力比较强的人呀？
+        - If I had the privilege to join your team, what is your suggestion before I start my internship/work?
+        - Could you please tell me what project or problems are you currently working on?
+        - Could you please tell me what have you learned so far from working in your current team?
+
+Determination
+    1. Work with smart people
+    2. Work as hard as anyone else
+    3. What is really making you happy for your whole life
+
+Systematic self-discipline
+    1. Set up your own key values / goals 择高处立，向宽处行
+    2. Be on time
+    3. Deliver the result as promised (whatever it takes) -- Expectation management
+    4. Do not complain too obviously, do not be too cynical
