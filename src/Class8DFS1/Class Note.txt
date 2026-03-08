@@ -1,0 +1,29 @@
+Recall Binary Tree Pre-order traversal.
+                10
+              /    \
+            5       15
+          /   \    /  \
+         2     7  12   20  --> all leaf nodes' level = 3
+Pre-order: 我把我⾃⼰放在最前来访问value...然后再左，右
+10 5 2 7 15 12 20
+
+Recursion vs DFS (Search Algorithm)
+DFS, in more general scope, it is one kind of search algorithm.
+DFS can be implemented in an either recursive way, or in iterative Way
+
+What is Recursive Backtracking? What's its relationship with recursion?
+    - Recursion（递归）是一种编程方式：函数自己调用自己。
+    - Backtracking（回溯）是一种算法思想：尝试所有可能，如果发现走不通就退回来换一条路。
+    - **Recursive Backtracking（递归回溯）**就是：用递归来实现回溯算法。
+    - 可以理解为：Recursion 是工具，Backtracking 是策略。
+    - Example: 
+        走迷宫: 走 -> 发现死路 -> 退回来 -> 换一条路
+
+We usually use recurive backtracking to do DFS!
+
+DFS 基本⽅法：
+    1. How many levels in the recursion tree? What does it do/store on each level?
+    （每层代表什么意义？⼀般来讲解题之前就知道DFS要recurse多少层）
+    2. How many different states should we try to put on each level? 
+    （每层有多少个状态/case 需要try？）
+
