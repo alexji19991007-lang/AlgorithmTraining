@@ -1,0 +1,141 @@
+String 专题完整讲义 —— In-Place + 双指针思想
+
+一、String 的本质
+    
+- String 本质是字符数组 char[]。
+- 所有 String 问题都可以转化为数组问题。
+
+示例：
+index : 0 1 2 3 4 5 6
+char : s t u d e n t
+
+ASCII:
+'A' = 65
+'a' = 97
+字符本质是整数。
+
+Unicode 支持 110000+ 字符。
+
+============================================================
+
+二、核心思想：双指针 + 区间不变量
+
+区间划分：
+
+[0 ........ slow-1] 已处理且保留
+[slow ..... fast-1] 中间区域
+[fast ..... n-1] 未处理区域
+
+slow：保留区尾部
+fast：当前扫描位置
+最重要的点在于：什么时候移动fast和slow pointer
+一般来说，我们在更新答案的时候，会移动slow pointer --> why? --> [0 ........ slow-1] 是最终答案
+一般来说，每次循环我们都会移动fast pointer --> why? --> 我们要一直向前看，把string看完
+
+============================================================
+
+三、Q1.1 删除指定字符 (in-place)
+
+例：student 删除 u 和 n -> stdet
+
+void removeChar(StringBuilder input) {
+    int slow = 0;
+    for (int fast = 0; fast < input.length(); fast++) {
+        char c = input.charAt(fast);
+        if (c != 'u' && c != 'n') {
+            input.setCharAt(slow, c);
+            slow++;
+        }
+    }
+    input.delete(slow, input.length());
+}
+
+时间复杂度：O(n)
+空间复杂度：O(1)
+
+============================================================
+
+四、Q1.2 删除前后及重复空格 (必须 in-place)
+
+指定输入： "__abc___de__"
+目标输出： "abc_de"
+
+原始：
+_ _ _ a b c _ _ d e _ _
+
+结果：
+a b c _ d e
+
+public String removeSpaces(String input) {
+    if (input == null || input.length() == 0) 
+        return input;
+
+    char[] array = input.toCharArray();  
+    int slow = 0;  
+
+    for (int fast = 0; fast < array.length; fast++) {  
+        if (array[fast] == ' ') {  
+            if (slow == 0 || array[slow - 1] == ' ') continue;  
+        }  
+        array[slow++] = array[fast];  
+    }  
+
+    if (slow > 0 && array[slow - 1] == ' ') slow--;  
+    return new String(array, 0, slow);  
+
+}
+
+时间复杂度：O(n)
+空间复杂度：O(1)
+
+============================================================
+
+五、Q2.1 相邻字符去重
+
+aabbbbazw -> abazw
+
+slow = 1
+for fast = 1 ... n-1:
+    if array[fast] != array[slow-1]:
+        array[slow] = array[fast]
+        slow++
+
+时间复杂度：O(n)
+空间复杂度：O(1)
+
+============================================================
+
+六、Q2.2 反复删除相邻重复字符（模拟栈）
+
+See RemoveAdjacentRepeatedCharacters.txt
+
+============================================================
+
+七、Q3 子串查找 strstr
+
+for i = 0 ... s1.length - s2.length:
+j = 0
+while j < s2.length && s1[i+j] == s2[j]:
+j++
+if j == s2.length:
+return i
+return -1
+
+时间复杂度：O(n*m)
+
+可优化：Rabin-Karp / KMP
+
+============================================================
+总结
+
+String ≈ char[] ≈ 双指针 ≈ 区间不变量
+
+核心能力：
+
+明确 slow / fast 的语义
+
+控制边界
+
+保证 O(n) 时间 + O(1) 空间
+
+=====结束=====
