@@ -1,0 +1,28 @@
+上节课我们讲了String的几种常见题型：
+    1. Removal
+        1.1. remove some particular chars from a string.
+        1.2. remove all leading/trailing/duplicated empty spaces from a string
+    2. De-duplication 上课2道题+课后2道题
+    3. Reversal (Reverse words in a sentence)
+
+今天继续讲三种：
+    4. Substring (IsSubstring)
+    5. Replacement 
+        5.1 Replace String
+        5.2 Compress String -- 课后作业
+        5.3 Decompress String -- 课后作业
+    6. **Sliding Window Questions**
+        - 特别注意，Sliding Window Questions有两种：
+            * Fix-sized sliding Window
+            * Dynamic-sized sliding window (longest xxx, shortest xxx)
+        - 一般来说所有的Sliding window questions都会和HashMap/HashSet紧密结合
+        - 对于所有Dynamic-sized sliding window questions，你只需要记得两个关键点：
+            * 什么时候移动左边界(left/slow)，什么时候移动右边界(right/fast)
+                * We must guarantee that whatever is in the sliding window after moving fast & slow border must satisfy the requirement of the question
+            * 什么时候更新，如何更新我们的current result
+        
+        6.1 Longest Substring W/O Repeating Characters
+        6.2 Longest Consecutive 1s -- 课后作业
+        6.3 All Anagrams
+        6.4 Longest Substring With K Unique Characters - 课后作业
+        6.5 Minimum Window Substring - 课后作业
