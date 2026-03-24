@@ -1,0 +1,39 @@
+Example with {a, b, c} & k = 2
+
+index=0, sb=""
+|
+├── choose 'a' → "a"
+|   index=1
+|   |
+|   ├── choose 'b' → "ab"
+|   |   ✅ 长度=2 → 加入结果
+|   |
+|   └── not choose 'b' → "a"
+|       index=2
+|       |
+|       ├── choose 'c' → "ac"
+|       |   ✅ 长度=2 → 加入结果
+|       |
+|       └── not choose 'c' → "a"
+|           index=3 ❌ 结束（长度不够）
+|
+└── not choose 'a' → ""
+    index=1
+    |
+    ├── choose 'b' → "b"
+    |   index=2
+    |   |
+    |   ├── choose 'c' → "bc"
+    |   |   ✅ 长度=2 → 加入结果
+    |   |
+    |   └── not choose 'c' → "b"
+    |       index=3 ❌
+    |
+    └── not choose 'b' → ""
+        index=2
+        |
+        ├── choose 'c' → "c"
+        |   index=3 ❌（长度不够）
+        |
+        └── not choose 'c' → ""
+            index=3 ❌

@@ -1,0 +1,75 @@
+Example with {a, a, b, b, c}
+index=0, sb=""
+|
+├── choose 'a' → "a"
+|   index=1
+|   |
+|   ├── choose 'a' → "aa"
+|   |   index=2
+|   |   |
+|   |   ├── choose 'b' → "aab"
+|   |   |   index=3
+|   |   |   |
+|   |   |   ├── choose 'b' → "aabb"
+|   |   |   |   index=4
+|   |   |   |   |
+|   |   |   |   ├── choose 'c' → "aabbc" ✅
+|   |   |   |   └── not choose 'c' → "aabb" ✅
+|   |   |   |
+|   |   |   └── skip duplicate 'b'
+|   |   |       → not choose → "aab"
+|   |   |           |
+|   |   |           ├── choose 'c' → "aabc" ✅
+|   |   |           └── not choose → "aab" ✅
+|   |   |
+|   |   └── skip duplicate 'b'
+|   |       → not choose → "aa"
+|   |           |
+|   |           ├── choose 'c' → "aac" ✅
+|   |           └── not choose → "aa" ✅
+|   |
+|   └── skip duplicate 'a'
+|       → not choose → "a"
+|           index=2
+|           |
+|           ├── choose 'b' → "ab"
+|           |   |
+|           |   ├── choose 'b' → "abb"
+|           |   |   |
+|           |   |   ├── choose 'c' → "abbc" ✅
+|           |   |   └── not choose → "abb" ✅
+|           |   |
+|           |   └── skip duplicate 'b'
+|           |       → not choose → "ab"
+|           |           |
+|           |           ├── choose 'c' → "abc" ✅
+|           |           └── not choose → "ab" ✅
+|           |
+|           └── skip duplicate 'b'
+|               → not choose → "a"
+|                   |
+|                   ├── choose 'c' → "ac" ✅
+|                   └── not choose → "a" ✅
+|
+└── skip duplicate 'a'
+    → not choose → ""
+        index=2
+        |
+        ├── choose 'b' → "b"
+        |   |
+        |   ├── choose 'b' → "bb"
+        |   |   |
+        |   |   ├── choose 'c' → "bbc" ✅
+        |   |   └── not choose → "bb" ✅
+        |   |
+        |   └── skip duplicate 'b'
+        |       → not choose → "b"
+        |           |
+        |           ├── choose 'c' → "bc" ✅
+        |           └── not choose → "b" ✅
+        |
+        └── skip duplicate 'b'
+            → not choose → ""
+                |
+                ├── choose 'c' → "c" ✅
+                └── not choose → "" ✅
