@@ -16,7 +16,9 @@
 //  get an overflowed number, and sometimes we will need to use something like BigInteger.
 
 public class Fibonacci {
-    public int fibonacci(int K) {
-        return -1;
+    public long fibonacci(int k) {
+        if (k <= 0) return 0;
+        if (k <= 2) return 1;
+        return fibonacci(k - 1) + fibonacci(k - 2);
     }
 }

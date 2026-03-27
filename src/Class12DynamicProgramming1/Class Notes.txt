@@ -1,0 +1,41 @@
+什么是 Dynamic Programming？
+    - 一句话理解：Dynamic Programming = 记住已经算过的结果，避免重复计算
+    - 它通常用来解决：
+        a) 有重复子问题（Overlapping Subproblems）
+        b) 具有最优子结构（Optimal Substructure）
+
+以fibonacci为例，用recursion来解决这个题目有什么问题？
+    - 重复计算（核心问题）
+    - 比如计算 fibonacci(k=5)：
+        f(5)
+        ├── f(4)
+        │   ├── f(3)
+        │   │   ├── f(2)
+        │   │   └── f(1)
+        │   └── f(2)
+        └── f(3)
+            ├── f(2)
+            └── f(1)
+
+    - f(3)被算了2次，f(2)被算了3次 --> k越大 --> 被重复的计算就越多
+    - Time Complexity: O(2^n) --> This is exponential level, which is super slow
+
+Dynamic Programming 思想
+    - 核心改进：“既然 f(3) 算过了，就存起来，下次直接用！”
+    - Originally: We split the problem into smaller problems. Once we solve the smaller problems, we use
+                  the smaller results to compute the bigger problem.
+    - Now: We start from the smallest possible problem and build all the way up step by step.
+    - 状态定义fibo[i] = 第 i 个Fibonacci数
+    - Base case: fibo[0] = 0, fibo[1] = 1
+    - State transfer function / Recurrence Relations: fibo[i] = fibo[i - 1] + fibo[i - 2]
+    - Time Complexity: O(n); Space Complexity: O(n)
+
+DP 的本质套路（非常重要）
+    - 以后你做 DP 题，基本按这 3 步：
+    ✅ Step 1：定义状态
+        dp[i] 表示什么？
+    ✅ Step 2：初始化
+        base case 是什么？
+    ✅ Step 3：写出转移方程
+        dp[i] = ?
+一句话总结: Dynamic Programming = Recursion + Memo（记忆）+ 顺序计算
