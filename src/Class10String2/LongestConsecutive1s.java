@@ -13,6 +13,24 @@ package Class10String2;
 // The given array is not null
 public class LongestConsecutive1s {
     public int longestConsecutiveOnes(int[] nums, int k) {
-        return -1;
+        int slow = 0, fast = 0;
+        int count = 0;
+        int longest = 0;
+        while (fast < nums.length) {
+            if (nums[fast] == 1) {
+                fast++;
+                longest = Math.max(longest, fast - slow);
+            } else if (count < k) {
+                fast++;
+                count++;
+                longest = Math.max(longest, fast - slow);
+            } else if (nums[slow] == 0) {
+                slow++;
+                count--;
+            } else {
+                slow++;
+            }
+        }
+        return longest;
     }
 }

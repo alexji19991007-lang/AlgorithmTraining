@@ -14,6 +14,16 @@ package Class9String1;
 
 public class RemoveAdjacentRepeatedCharacters2 {
     public String deDup(String input) {
-        return "";
-    }
+        if (input == null || input.length() <= 2) {
+            return input;
+        }
+        int slow = 2;
+        char[] array = input.toCharArray();
+        for (int fast = 2; fast < input.length(); fast++) {
+            if (array[fast] != array[slow - 2] || array[fast] != array[slow - 1]) {
+                array[slow++] = array[fast];
+            }
+        }
+        return new String(array, 0, slow);
+  }
 }

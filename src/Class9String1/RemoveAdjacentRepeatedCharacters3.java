@@ -14,6 +14,22 @@ package Class9String1;
 // If the given string is null, we do not need to do anything.
 public class RemoveAdjacentRepeatedCharacters3 {
     public String deDup(String input) {
-        return "";
-    }
+        if (input == null || input.length() <= 1) {
+            return input;
+        }
+        char[] array = input.toCharArray();
+        int slow = 0;
+        boolean hasRepeat = false;
+        for (int fast = 1; fast < array.length; ++fast) {
+            if (array[fast] == array[slow]) {
+                hasRepeat = true;
+            } else if (hasRepeat) {
+                array[slow] = array[fast];
+                hasRepeat = false;
+            } else {
+                array[++slow] = array[fast];
+            }
+        }
+        return new String(array, 0, hasRepeat ? slow : slow + 1);
+  }
 }
