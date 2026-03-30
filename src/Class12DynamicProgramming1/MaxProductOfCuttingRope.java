@@ -34,16 +34,16 @@ package Class12DynamicProgramming1;
 //
 // We take the maximum over all j:
 //
-// dp[i] = max over all j in [1, i/2]:
+// dp[i] = max over all j in [1, i]:
 //         max(j, dp[j]) * (i - j)
-//
-// 回家作业第一：为什么可以stop at i/2
 public class MaxProductOfCuttingRope {
     public int maxProduct(int length) {
         int[] M = new int[length + 1];
         M[1] = 1;
         for (int i = 2; i < length + 1; ++i) {
-            for (int j = 1; j <= i / 2; ++j) {
+            for (int j = 1; j <= i; ++j) {
+                // 左大段 --> 怎么切？ --> 查
+                // 右小段 --> 不切 直接乘
                 M[i] = Math.max(M[i], Math.max(j, M[j]) * (i - j));
             }
         }
