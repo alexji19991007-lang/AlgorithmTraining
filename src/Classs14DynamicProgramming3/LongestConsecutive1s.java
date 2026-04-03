@@ -7,9 +7,23 @@ package Classs14DynamicProgramming3;
 
 // Examples
 // {0, 1, 0, 1, 1, 1, 0}, the longest consecutive 1s is 3.
+
+//  0  1  0  1  2  3  0
 public class LongestConsecutive1s {
     public int longest(int[] array) {
-        // Write your solution here
-        return -1;
+        if (array.length == 0) {
+            return 0;
+        }
+        int curLen = 0;
+        int maxLen = 0;
+        for (int value : array) {
+            if (value == 1) {
+                curLen++;
+                maxLen = Math.max(maxLen, curLen);
+            } else {
+                curLen = 0;
+            }
+        }
+        return maxLen;
     }
 }
