@@ -1,4 +1,4 @@
-package Classs14DynamicProgramming3;
+package Class14DynamicProgramming3;
 
 // Given an array containing only 0s and 1s, find the length of the longest subarray of consecutive 1s.
 

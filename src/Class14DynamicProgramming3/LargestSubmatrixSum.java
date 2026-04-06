@@ -1,4 +1,4 @@
-package Classs14DynamicProgramming3;
+package Class14DynamicProgramming3;
 
 
 // Given a matrix that contains integers, find the submatrix with the largest sum.

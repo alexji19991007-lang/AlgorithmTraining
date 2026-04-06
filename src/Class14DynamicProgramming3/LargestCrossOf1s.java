@@ -1,4 +1,4 @@
-package Classs14DynamicProgramming3;
+package Class14DynamicProgramming3;
 
 // Given a matrix that contains only 1s and 0s, find the largest cross which 
 // contains only 1s, with the same arm lengths and the four arms joining at 

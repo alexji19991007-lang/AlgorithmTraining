@@ -1,4 +1,4 @@
-package Classs14DynamicProgramming3;
+package Class14DynamicProgramming3;
 
 // Determine the largest square surrounded by 1s in a binary matrix (a binary matrix only contains 0 and 1), return the length of the largest square.
 
