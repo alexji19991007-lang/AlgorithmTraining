@@ -1,0 +1,52 @@
+Decimal representation
+    * 2084 = 2*10^3 + 0*10^2 + 8*10^1 + 4*10^0
+    * 逢⼗进⼀
+Binary representation
+    * 5 = 1*2^2 + 0*2^1 + 1*2^0 = 0b101
+
+Why do we need to learn bit representation?
+    * Computer hardware represents numbers in binary. Optimization especially in infrastructure code
+
+🔍 正数的表示 🔍 
+“5”
+0000 0000 0000 0000 0000 0000 0000 0101
+    * least significant bit: the right-most number, which is 1
+    * most significant bit: the left-most number, which is 0
+    * 1 * 2^2 + 1 * 2^0 = 5
+
+最左边⼀位(most significant bit)是符号位
+    * 0: positive number
+    * 1: negativenumber
+
+C++ int / Java int (signed 32*bit). 
+max int = 011111...111 (31 ones) = 2^31 * 1 = 2147483647
+max long = 01111...111 (63 ones) = 2^63 * 1
+
+🔍 负数的表示 🔍 
+Two’s complement (补码)
+    * 对于负数 “-1”: 1 变反加1
+    * 1 = 0000 0000 0000 0000 0000 0000 0000 0001
+    * -1 --> 变反 1111 1111 1111 1111 1111 1111 1111 1110
+         --> 加1  1111 1111 1111 1111 1111 1111 1111 1111
+
+Another example
+    *  2 = 0b 0000 0010
+    * -2 --> 变反 0b 1111 1101 
+         --> 加1  0b 1111 1110
+    * 2 + (-2) = (0b 0000 0010) + (0b 1111 1110) = 0b 0000 0000
+
+
+十进制 → 二进制的核心方法（除2取余）
+✅ 步骤：
+    1. 用这个数 不断除以 2
+    2. 每一步记录 余数（0 或 1）
+    3. 从下往上读余数
+
+例子：29 → 二进制
+29 ÷ 2 = 14 ... 1
+14 ÷ 2 = 7  ... 0
+7  ÷ 2 = 3  ... 1
+3  ÷ 2 = 1  ... 1
+1  ÷ 2 = 0  ... 1
+把余数 从下往上读：11101
+所以：29 (decimal) = 11101 (binary)

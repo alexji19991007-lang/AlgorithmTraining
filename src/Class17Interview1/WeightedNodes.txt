@@ -1,0 +1,65 @@
+You are given a Directed Acyclic Graph (DAG) represented as a dictionary. The keys are node labels, 
+and the values are lists of children node labels. The DAG has the following properties:  
+- There is one and only one start node.
+- There are zero or more internal nodes.
+- There are one or more terminal nodes.
+
+Your task is to implement the following function to sort all the terminal nodes in descending order based 
+on their weights.
+
+* The weight of a node is defined as the number of distinct nodes among all possible paths from the start 
+node to this node.
+
+`public static List<String> sortTerminalNodes(Map<string, List<String>> dag)
+
+Example 1:
+dag = {
+  "A": []
+}
+Output: ["A"]
+Explanation: Only one node, which is both the start and terminal node.
+
+Example 2:
+dag = {
+  "A": ["B", "C", "D"],
+  "B": ["D"],
+  "C": [],
+  "D": [],
+}
+Output: ["D", "C"]
+Explanation: Two terminal nodes C and D.
+  - C has only one path from start node A (A -> C) with weight 2.
+  - D has two paths (A -> B -> D and A -> D) with weight 3.
+
+Example 3:
+dag = {
+  "A": ["B", "C", "D"],
+  "B": ["E", "F", "G"],
+  "C": ["G"],
+  "D": ["G", "H"],
+  "E": ["F"],
+  "F": [],
+  "G": [],
+  "H": [],
+}
+Output: ["G", "F", "H"]
+
+Explanation: Weights are 5 for G, 4 for F, and 3 for H.
+Example 4:
+dag = {
+    "A": ["H", "M"],
+    "B": [],
+    "C": ["B"],
+    "D": [],
+    "E": ["K"],
+    "F": ["E"],
+    "G": ["J", "M", "L"],
+    "H": [],
+    "I": [],
+    "J": ["I", "F", "A"],
+    "K": ["C"],
+    "L": ["D"],
+    "M": ["D"]
+}
+Output: ["B", "D", "H", "I"]
+Explanation: Weights are 7 for B, 6 for D, 4 for H and 3 for I.
