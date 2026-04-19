@@ -1,0 +1,78 @@
+What is the difference between an interface & an abstract class:
+1. Core difference: 
+     - abstract class --> "is-a" relationship (i.e. what it is). For example, A Car is a Vehicle; A Tesla is a Vehicle
+     - interface --> "can do" relationship (i.e. what it can do). For example, A Tesla can be charged, thus it's "IChargeable".
+2. Code level difference:
+     - 1 class can extends only 1 abstract class but it can implement multiple interfaces
+     - Abstract class methods can have actual implementations, while an interface's methods are by default abstract methods 
+       (i.e. no implementation). After Java 8 you can also have default implementations for interface methods.
+     - Abstract class can have any fields, while interface can only have public static final fields.
+     - Abstract class can have constructor(s), but it cannot be instantiated. Interface cannot have constructor.@interface
+     - Abstract class can have any access modifiers (public, private, protected). Interface by default has public methods
+     - Abstract class can have states, while interface cannot have states.
+
+static关键字：表示这个method/field属于这个class但是不属于这个class的单个实例。
+什么是static field/method，以及在别的有static class的语言里面，什么是static class？为什么static class又可以被称作为utility class。
+可以看一下ReconstructBinaryTreeWithLevelOrderAndInOrder里面我写的例子
+
+✅ When to use an Abstract Class
+Use an abstract class when you are modeling a base type with shared state and behavior.
+    - You have an “is-a” relationship (e.g., Car is a Vehicle)
+    - Multiple classes share common fields (state)
+    - You want to provide partial implementation (some methods already implemented)
+    - You need constructors to initialize data
+    - You want to enforce a common structure across subclasses
+👉 Example use case:
+A base Vehicle class with shared fields like brand, speed, and common methods.
+
+✅ When to use an Interface
+Use an interface when you are defining a capability or contract that can be applied to different types.
+    - You have a “can-do” relationship (e.g., Bird can fly)
+    - You want to define behavior WITHOUT state
+    - You need multiple inheritance (a class can implement multiple interfaces)
+    - You want to decouple code and support flexible design (e.g., dependency injection, mocking)
+    - You are designing APIs or pluggable components
+👉 Example use case:
+A Flyable interface that can be implemented by Bird, Airplane, etc.
+
+==========================================================================================================================
+
+Exception Handling
+Exception v.s. Error
+1. An Exception indicates conditions that a reasonable application might want to catch. 
+2. An Error indicates serious problems that a reasonable application should not try to catch: e.g. StackOverflowError
+*Both Error and Exceptions extend from Throwable.
+
+java.lang.Throwable
+      ├── java.lang.Error                      (unchecked, serious system issues)
+      │    ├── VirtualMachineError
+      │    │    ├── OutOfMemoryError
+      │    │    ├── StackOverflowError
+      │    ├── LinkageError
+      │    │    ├── NoClassDefFoundError
+      │    │    ├── UnsatisfiedLinkError
+      │    ├── AssertionError
+      │    ├── InternalError
+      │
+      └── java.lang.Exception                  (conditions applications may handle)
+           ├── java.lang.RuntimeException      (unchecked)
+           │    ├── NullPointerException
+           │    ├── ArithmeticException
+           │    ├── IndexOutOfBoundsException
+           │    │    ├── ArrayIndexOutOfBoundsException
+           │    │    ├── StringIndexOutOfBoundsException
+           │    ├── ClassCastException
+           │    ├── IllegalArgumentException
+           │    │    ├── NumberFormatException
+           │    ├── IllegalStateException
+           │
+           └── Checked Exceptions              (must be handled or declared)
+                ├── IOException
+                │    ├── FileNotFoundException
+                │    ├── EOFException
+                ├── SQLException
+                ├── ClassNotFoundException
+                ├── InterruptedException
+
+- Checked exceptions are for recoverable external conditions and must be handled at compile time.
+- Unchecked exceptions represent programming errors and occur at runtime without mandatory handling.

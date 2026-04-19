@@ -20,6 +20,18 @@ import java.util.*;
 // 1      4        11
 
 public class ReconstructBinaryTreeWithLevelOrderAndInOrder {
+    // 本身 or 单例？
+    // 有static-->本身
+    // 无static-->单例/instance
+    private int state;
+
+    public static void main(String[] args) {
+        int[] x = new int[1];
+        int[] y = new int[1];
+        ReconstructBinaryTreeWithLevelOrderAndInOrder instance = new ReconstructBinaryTreeWithLevelOrderAndInOrder();
+        instance.reconstruct(x, y);
+    }
+
     public TreeNode reconstruct(int[] inOrder, int[] levelOrder) {
         // Build a map: value -> index in inorder
         // This helps us quickly determine whether a node belongs to left or right subtree
@@ -36,7 +48,8 @@ public class ReconstructBinaryTreeWithLevelOrderAndInOrder {
         return helper(valueToInOrderIndex, levelList);
     }
 
-    public TreeNode helper(Map<Integer, Integer> valueToInOrderIndex, Queue<Integer> levelList) {
+    // 只要没有touch到这个class的state，那这个method就应该被标为static
+    public static TreeNode helper(Map<Integer, Integer> valueToInOrderIndex, Queue<Integer> levelList) {
         // Base case: no nodes left
         if (levelList.isEmpty()) {
             return null;
