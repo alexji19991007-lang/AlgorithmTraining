@@ -1,0 +1,85 @@
+一、Abstract Factory 本质在干嘛？
+    一句话核心：
+        👉 抽象工厂是用来创建“一整套相关对象（产品族）”，并保证它们彼此匹配
+        🔑 关键词：产品族（Product Family）
+    比如一个 UI 系统：
+        风格	    Button	        Checkbox
+        Windows	WindowsButton	WindowsCheckbox
+        Mac 	MacButton	    MacCheckbox
+    👉 这里：
+        Button + Checkbox = 一套产品
+        Windows / Mac = 不同“产品族”
+    See Main.java
+
+二、Abstract Factory 的核心作用 ✅
+    1️⃣ 保证“产品之间的兼容性”（最重要）
+        👉 举个真实一点的例子：
+            数据库驱动：
+            数据库	        Connection	        Statement
+            MySQL	    MySQLConnection	    MySQLStatement
+            PostgreSQL	PgConnection	    PgStatement
+        👉 如果你乱配：
+            MySQLConnection + PgStatement ❌
+        👉 会直接崩
+    ✔ 抽象工厂保证：
+        DBFactory factory = new MySQLFactory();
+        👉 创建出来的所有对象：
+            - 都是 MySQL 体系
+            - 一定兼容
+    
+    2️⃣ 一键切换“整套系统”
+        UIFactory factory = new MacFactory();
+        👉 整个 UI 全变：
+            Button
+            Checkbox
+            全部一起换
+        🔥 “系统级切换能力”
+    
+    3️⃣ 解耦“具体实现”和“业务逻辑”
+        业务代码：Button btn = factory.createButton();
+        👉 完全不知道：
+            是 WindowsButton
+            还是 MacButton
+        ✔ 好处：
+            - 可测试
+            - 可扩展
+            - 可替换
+
+    4️⃣ 强制遵守架构约束（高级点）
+        👉 抽象工厂其实在“约束设计”：
+        你必须：
+        createButton()
+        createCheckbox()
+        👉 所有实现类必须提供完整产品族
+
+三、和 Factory Pattern 的本质区别（重点🔥）
+我们用一句话区分：
+👉 Factory：解决“创建哪个对象”
+👉 Abstract Factory：解决“创建哪一整套对象”
+    
+四、什么时候用 Abstract Factory？✅
+✔ 场景1：有“产品族”
+    👉 必须满足：
+        - 多个对象
+        - 彼此有关联
+        - 需要一起使用
+✔ 场景2：需要“整套切换”
+    比如：
+        - UI 主题（暗黑 / 亮色）
+        - 数据库（MySQL / Oracle）
+        - 操作系统适配
+✔ 场景3：需要保证一致性
+    👉 不能混用对象
+
+五、什么时候不要用？❌
+❌ 1️⃣ 只有一个对象
+    👉 用 Factory 就够了
+❌ 2️⃣ 没有“组合关系”
+    👉 对象之间独立 → 不需要抽象工厂
+❌ 3️⃣ 系统不会扩展
+    👉 抽象工厂会增加复杂度
+
+六、总结
+Abstract Factory 本质是：“把系统的维度，从‘单个对象’提升到‘对象组合（生态）’”
+    - Factory Pattern 解决“对象创建”，
+    - Abstract Factory 解决“产品族创建 + 一致性保证”。

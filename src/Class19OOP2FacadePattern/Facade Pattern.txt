@@ -1,0 +1,69 @@
+Facade Pattern（外观模式）是一个结构型设计模式，核心思想非常简单但很实用：
+    👉 给复杂系统提供一个“统一的简单入口”
+
+一、用人话理解
+想象你去看电影 🎬：
+你不需要：
+    - 自己开投影机
+    - 调音响
+    - 拉幕布
+👉 你只需要按一个按钮：
+    startMovie()
+👉 这个“按钮”就是 Facade（外观）
+
+二、它解决什么问题？
+现实中的系统经常是这样的：
+    DVDPlayer dvd = new DVDPlayer();
+    Projector projector = new Projector();
+    SoundSystem sound = new SoundSystem();
+
+    projector.on();
+    sound.on();
+    dvd.play();
+👉 问题：
+    ❌ 调用复杂（调用顺序还不能错）
+    ❌ 客户端要知道很多细节
+    ❌ 强耦合(strong coupling)多个子系统
+
+三、Facade 怎么做？
+👉 把这些操作封装起来 -- See HomeTheaterFacade.java
+👉 客户端只需要：
+    ✔ 一个方法
+    ✔ 不关心内部细节
+
+四、Facade 的核心作用 ✅
+1️⃣ 简化调用（最核心）
+    facade.watchMovie();
+替代：
+    projector.on();
+    sound.on();
+    dvd.play();
+
+2️⃣ 降低耦合
+客户端：
+不再依赖：
+    ❌ DVDPlayer
+    ❌ Projector
+    ❌ SoundSystem
+✔ 只依赖 Facade
+
+3️⃣ 隐藏复杂性
+👉 子系统可以随便改：
+    // 内部改成流媒体播放
+👉 客户端完全不用改
+
+4️⃣ 提供更高层语义
+watchMovie()
+👉 比：
+projector.on()
+更符合业务语义
+
+七、什么时候用 Facade？✅
+    ✔ 1️⃣ 系统很复杂 👉 多个类协同工作
+    ✔ 2️⃣ 客户端不需要知道细节
+    ✔ 3️⃣ 想降低耦合
+    ✔ 4️⃣ 想提供“高层接口”
+
+八、什么时候不要用？❌
+    ❌ 1️⃣ 系统本来很简单 👉 多此一举
+    ❌ 2️⃣ 客户端需要灵活控制细节 👉 Facade 会限制能力

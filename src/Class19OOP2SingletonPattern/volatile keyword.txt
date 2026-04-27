@@ -1,0 +1,127 @@
+volatile 是 Java volatile keyword 中一个非常重要但也容易被误解的关键字，它主要解决多线程中的<可见性>和<有序性>问题，但<不保证原子性>。
+
+保证可见性（Visibility）✅
+- 作用：一个线程修改变量，其他线程能立刻看到最新值
+- 没有 volatile 的问题：
+    boolean flag = true;
+
+    Thread A:
+    while (flag) {
+        // do something
+    }
+
+    Thread B:
+    flag = false; 
+    👉 可能出现：
+        Thread B 已经改成 false
+        Thread A 一直看不到更新（死循环）
+    原因：
+        线程可能从CPU缓存读取变量，而不是主内存
+- 加上 volatile：
+    volatile boolean flag = true;
+    ✔ 保证：
+        - 每次读取都从主内存
+        - 修改会立刻刷新
+    👉 Thread A 能立即退出循环
+
+禁止指令重排序（Ordering）✅
+- 作用：防止 JVM/CPU 对代码执行顺序做优化导致问题
+- 经典例子：单例（双重检查锁）
+    class Singleton {
+        private static volatile Singleton instance;
+
+        public static Singleton getInstance() {
+            if (instance == null) {
+                synchronized (Singleton.class) {
+                    if (instance == null) {
+                        instance = new Singleton();
+                    }
+                }
+            }
+            return instance;
+        }
+    }
+👉 为什么必须 volatile？
+    因为：instance = new Singleton();
+    Ideally speaking，代码的正确执行顺序应该是：
+        1. 分配内存
+        2. 初始化对象
+        3. 把引用指向内存
+    实际可能被重排序成：
+        1 --> 3 --> 2
+    👉 如果重排序：
+        - 另一个线程看到 instance != null
+        - 但对象还没初始化完
+            ⇒ 严重 bug（半初始化对象）
+    volatile 的作用：
+        ✔ 禁止这种重排序
+        ✔ 保证对象初始化安全
+
+========================================================================================================================== 
+
+原子性Atomicity
+在多线程里，原子性（Atomicity）可以理解为：
+    👉 一个操作要么全部执行完成，要么完全不执行，中间不会被打断。
+
+一、用人话理解
+你可以把“原子操作”理解成：
+    🧱 不可分割的一步操作
+    就像银行转账：
+        - 要么钱完整转过去
+        - 要么完全不转
+        - 绝不会出现扣了钱但没到账这种“中间状态”
+
+二、经典例子（为什么会出问题）
+    int count = 0;
+    count++;
+    看起来是一行，但实际上是三步：
+        1. 读取 count
+        2. count + 1
+        3. 写回 count
+    Example: 多线程问题👇
+        线程A 和 线程B 同时执行上述代码：
+        初始 count = 0
+        线程A 读 → 0
+        线程B 读 → 0
+        线程A 写 → 1
+        线程B 写 → 1
+        👉 结果：
+            count = 1 （本来应该是 2）
+        这就是：
+            ❌ 没有原子性 → 丢失更新
+
+三、什么是“有原子性”的操作？
+    ✔ 天然原子（JVM保证）
+        这些操作是原子的(atomic)：
+            - int a = 10;// 基本类型赋值
+            - boolean flag = true;
+            - reference = obj; // 引用赋值
+        👉 因为它们是“一步完成”
+    ❌ 非原子操作
+        anything that is check-then-act（先判断再执行）
+            - count++;
+            - i += 1;
+
+四、如何保证原子性？
+    方法1：synchronized（最经典）
+        synchronized (this) {
+            count++;
+        }
+        ✔ 同一时间只有一个线程执行
+        ✔ 保证原子性
+
+    方法2：原子类（更高效）
+        使用 AtomicInteger：
+        AtomicInteger count = new AtomicInteger(0);
+        count.incrementAndGet();
+        ✔ 底层用 CAS（无锁）
+        ✔ 性能更好
+        
+    方法3：Lock
+        ReentrantLock lock = new ReentrantLock();
+        lock.lock();
+        try {
+            count++;
+        } finally {
+            lock.unlock();
+        }

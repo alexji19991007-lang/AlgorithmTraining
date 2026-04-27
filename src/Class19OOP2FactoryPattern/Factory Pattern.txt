@@ -1,0 +1,47 @@
+工厂模式（Factory Pattern）本质上解决一个问题：
+    👉 把“对象创建”这件事，从业务代码里拆出来，统一管理
+
+一、为什么需要工厂模式？（核心动机）
+    先看一个没有工厂的写法 👇
+        Shape shape;
+        if (type.equals("circle")) {
+            shape = new Circle();
+        } else if (type.equals("square")) {
+            shape = new Square();
+        }
+    问题：
+        ❌ 到处都是 new
+        ❌ if-else 越来越多
+        ❌ 新增类型要改很多地方
+        ❌ 强耦合（依赖具体类
+    👉 本质问题：“创建对象”和“使用对象”混在一起了
+
+二、工厂模式做了什么？
+    👉 把创建逻辑集中到一个地方：
+        public class ShapeFactory {
+            public static Shape create(String type) {
+                if (type.equals("circle")) return new Circle();
+                if (type.equals("square")) return new Square();
+                throw new IllegalArgumentException();
+            }
+        }
+    使用方：
+        Shape shape = ShapeFactory.create("circle"); // I don't need to care about the implementation details (i.e. how a circle is actually created)
+
+三、工厂模式的核心作用 ✅
+    1️⃣ 解耦（最重要）
+        调用方：Shape shape = ShapeFactory.create(type);
+        👉 不需要知道：
+            - Circle 怎么创建
+            - Square 怎么创建
+        ✔ 只关心“我要一个 Shape”
+
+    2️⃣ 集中管理创建逻辑
+        以后你要加逻辑：return new Circle(radius, color, cache, config...);
+        👉 只改工厂一个地方
+    
+    3️⃣ 易扩展（符合开闭原则）
+        新增：class Triangle implements Shape {}
+        👉 只需要：if (type.equals("triangle")) return new Triangle();
+    
+    
