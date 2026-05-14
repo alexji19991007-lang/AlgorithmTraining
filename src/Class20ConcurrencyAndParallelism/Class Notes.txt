@@ -1,0 +1,162 @@
+THREAD v.s. PROCESS
+
+Process:
+- A process is an independent running program.
+- For example:
+    - Chrome browser
+    - Spotify
+    - VS Code
+- Each one is its own process with its own memory space.
+
+Thread:
+- A thread is the smallest schedulable execution unit in most modern systems (and in java).
+    - The OS scheduler schedules threads, not individual methods/functions.
+    - CPU cores execute threads.
+    - A process itself does not directly execute code — its threads do.
+- A single process can contain multiple threads that work simultaneously and share the same memory.
+- For example, inside Chrome:
+    - one thread renders the webpage
+    - one thread plays video
+    - one thread handles network requests
+    - one thread executes JavaScript
+- All of these belong to the same Chrome process.
+
+========================================================================================================================== 
+
+WHY DO WE NEED MULTITHREADING?
+- Without multithreading, programs would freeze whenever they perform a slow task.
+- For example:
+- Imagine a trading application. It needs to:
+    - receive live market data
+    - update the UI
+    - calculate price
+    - send orders
+    - write logs
+- If everything runs on a single thread:
+    receive data
+    → calculate price
+    → update UI
+    → write logs
+    → send orders
+- The UI may freeze and market updates may lag.
+- With multithreading:
+    Thread 1 → market data
+    Thread 2 → UI rendering
+    Thread 3 → price calculation
+    Thread 4 → logging
+    Thread 5 → order execution
+    → Task can happen concurrently
+- This makes the system:
+    * faster
+    * more responsive
+    * better at utilizing CPU cores
+- Real world analogy:
+    - Process = 餐馆
+    - 餐馆有：
+        kitchen
+        tables
+        inventory
+        staff
+    - Threads = 餐馆员工
+    - Different workers do different jobs simultaneously:
+        * 员工A炒菜
+        * 员工B点单
+        * 员工C打扫卫生
+        * 员工D收银
+    - If only one worker did everything sequentially, the restaurant would be extremely slow.
+- Multithreading is basically dividing work so multiple tasks can happen at the same time efficiently.
+
+========================================================================================================================== 
+
+CONCURRENCY (并发) v.s. PARALLELISM (并行)
+- 上面我们讲了一个Process可以有多个thread，那请问多个thread可以同时一起执行吗？还是说只能A执行一段时间后让B执行这样交替往复？
+    * Yes, Different threads in the same process can absolutely execute simultaneously in parallel!
+    * That is one of the main reasons threads exist!
+    - But it also depends on your computer's number of CPU cores.
+- Suppose your computer has:
+        * 8 CPU cores
+    & your Java process has:
+        * 4 threads
+    The OS may schedule:
+        Core 1 → Thread A
+        Core 2 → Thread B
+        Core 3 → Thread C
+        Core 4 → Thread D
+    * All four threads can literally run at the same time.
+    * This is called PARALLELISM.
+- However, if your computer only has:
+        * 1 CPU core
+    & your Java process has:
+        * 2 CPU threads
+    The OS may schedule:
+        Core 1 → Thread A
+        Core 1 → Thread B
+        Core 1 → Thread A
+        Core 1 → Thread B
+    The OS rapidly switches between threads. --> This is called Context Switch
+    * This is called CONCURRENCY
+
+Concept	                    Meaning
+Concurrency	        Tasks make progress together in an alternating manner
+Parallelism	        Tasks execute literally simultaneously
+
+========================================================================================================================== 
+
+THREAD SAFETY ISSUES
+Race Condition
+    - A race condition happens when multiple threads access and modify shared data at the same time, and the 
+      final result depends on the timing/order of execution.
+    - Because thread scheduling is nondeterministic, the program may produce:
+        * incorrect results
+        * inconsistent behavior
+        * intermittent bugs
+    
+Classic Race Condition Example:
+    - Suppose two threads both execute:
+        count++;
+      at the same time.
+    - Even though it looks like one operation, it actually consists of:
+        1. read count
+        2. add 1
+        3. write back
+    - Possible execution:
+        1. Thread A reads 5
+        2. Thread B reads 5
+        3. Thread A writes 6
+        4. Thread B writes 6
+    - Expected result:
+        7
+    - Actual result:
+        6
+    - One increment is lost.
+    --> That is a race condition.
+
+Why Is It Called “Race” Condition?
+    - Because threads are essentially racing against each other to access or modify shared resources.
+    - The outcome depends on:
+        * timing
+        * CPU scheduling
+        * thread interleaving
+
+How to prevent race condition?
+Technique	                    Purpose
+synchronized	            mutual exclusion
+Lock	                    explicit locking
+AtomicInteger	            atomic operations
+immutable objects	        avoid shared mutation
+*concurrent collections*	thread-safe data structures
+
+Technique	                Idea	                        Tradeoff
+synchronized	        simple mutual exclusion	        blocking
+ReentrantLock	        advanced locking control	    more complex
+AtomicInteger	        lock-free atomic ops	        limited use cases
+immutable objects	    eliminate shared mutation	    creates new objects
+concurrent collections	built-in thread safety	        only for collections
+
+Real-World Usage
+In real systems:
+    * Banking systems → locks + transactions
+    * Trading systems → atomics + lock-free structures
+    * Web servers → thread pools + concurrent collections
+    * Functional systems → immutability
+    * High-frequency trading → CAS + lock-free queues

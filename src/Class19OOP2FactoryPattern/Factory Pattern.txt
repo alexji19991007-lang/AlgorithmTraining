@@ -9,11 +9,12 @@
         } else if (type.equals("square")) {
             shape = new Square();
         }
+        ...
     问题：
         ❌ 到处都是 new
         ❌ if-else 越来越多
         ❌ 新增类型要改很多地方
-        ❌ 强耦合（依赖具体类
+        ❌ 强耦合（依赖具体类）
     👉 本质问题：“创建对象”和“使用对象”混在一起了
 
 二、工厂模式做了什么？
@@ -29,7 +30,7 @@
         Shape shape = ShapeFactory.create("circle"); // I don't need to care about the implementation details (i.e. how a circle is actually created)
 
 三、工厂模式的核心作用 ✅
-    1️⃣ 解耦（最重要）
+    1️⃣ 解耦（最重要）Decoupling
         调用方：Shape shape = ShapeFactory.create(type);
         👉 不需要知道：
             - Circle 怎么创建

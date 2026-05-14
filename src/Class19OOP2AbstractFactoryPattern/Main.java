@@ -2,7 +2,7 @@ package Class19OOP2AbstractFactoryPattern;
 
 public class Main {
     public static void main(String[] args) {
-        UIFactory factory = new WindowsFactory();
+        UIFactory factory = new MacFactory();
         // 👉 保证：
         // ✔ btn 和 cb 是同一风格
         // ✔ 不会混用（比如 WindowsButton + MacCheckbox ❌）
